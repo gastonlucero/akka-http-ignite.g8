@@ -1,6 +1,6 @@
 A [Giter8][g8] template for Akka Http with Apache Ignite in Scala
 
- [![Build Status](https://travis-ci.org/http4s/akka-http-ignite.g8.svg)](https://travis-ci.org/gastonlucero/akka-http-ignite.g8)
+ [![Build Status](https://api.travis-ci.org/gastonlucero/akka-http-ignite.g8.svg?branch=master)](https://travis-ci.org/gastonlucero/akka-http-ignite.g8)
 
 Prerequisites:
 - Jdk 8
