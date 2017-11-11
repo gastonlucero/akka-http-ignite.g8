@@ -125,7 +125,7 @@ IotDevice class needs some annotations to be available for queries
 
 #### ScalaTest
 
-IotRoutesSpec class contains test for all the endpoints, the test are executed sequentially                                                          
+IotRoutesSpec class contains test for all endpoints.                                                          
          
 #### Curl test
 
