@@ -51,7 +51,7 @@ For complete the request, a message is send to iotActor, that contains the busin
          }
                          
 #### Ignite
-######Mode 'simple'    
+###### Mode 'simple'    
 
 Ignite cache by default starts an instance in the local machine where the app is running,start the app and console prints this message
  
@@ -72,12 +72,12 @@ And in node1 console:
        
  Now we have an Ignite cluster!,what this means? simple, if we do cache.put("key","value") in node1, and after that a cache.get("key") in node2, we obtain "value".
  
-######Mode 'cluster'
+###### Mode 'cluster'
 With this mode, ignite is able to uses cluster groups, that represents a logical grouping of cluster nodes. In this case, when 'cluster' mode is enabled, the behavior is the same as prior mode, but with the ability to send messages to cluster group, in this case, only to remotes nodes.
 
 Run again the app, with 'cluster' mode, first with akka.port=8080 and again with akka.port=8090, the messages are the same, but with a little difference in node1:
 
-* Node1:    
+*Node1:    
        
        Topology snapshot [ver=1, servers=1, clients=0, CPUs=4, heap=1.8GB]
        
@@ -91,7 +91,7 @@ Run again the app, with 'cluster' mode, first with akka.port=8080 and again with
 *Node2:
 
        Topology snapshot [ver=2, servers=2, clients=0, CPUs=4, heap=3.6GB]
-       Hello node local8081, this message had been send by igniteCompute broadcast
+       Hello node local8090, this message had been send by igniteCompute broadcast
        Hello I am the IotActor[Actor[akka://IgniteActorSystem/user/iotActor#-187060348]] with Ignite [iotDeviceDataGrid]
        Server online at http://0.0.0.0:8090            
          
@@ -104,11 +104,13 @@ IgniteHelper.igniteCluster method, sends to remote nodes in the cluster(not the 
 Ignite can distribute your computations across cluster nodes
  <a>https://apacheignite.readme.io/docs/compute-grid
  
- ######Mode 'multicast'
+ ###### Mode 'multicast'
+ 
  Nodes can discover each other by using DiscoverySpi. Ignite provides TcpDiscoverySpi as a default implementation of DiscoverySpi that uses TCP/IP for node discovery. Discovery SPI can be configured for Multicast and Static IP based node discovery.
  Multicast Based Discovery : TcpDiscoveryMulticastIpFinder uses Multicast to discover other nodes in the grid and is the default IP finder.
 
-######Sql Support
+###### Sql Support
+
 Ignite supports sql over values, the way an app can achieve this is indexing a type class
         
         cacheConfig.setIndexedTypes(Seq(classOf[String], classOf[IotDevice]): _*) 
@@ -121,20 +123,33 @@ IotDevice class needs some annotations to be available for queries
                              @(QuerySqlField@field) model: String) extends Iot
 
 
-####ScalaTest
+#### ScalaTest
+
 IotRoutesSpec class contains test for all the endpoints, the test are executed sequentially                                                          
          
-####Curl test
-#####Create an IotDevice and put in cache with gpio as key-entry
+#### Curl test
+
+*Create an IotDevice and put in cache with gpio as key-entry
+
     curl -H "Content-type: application/json" -X POST -d '{"name": "fridge-sensor", "gpio":"gpio57","model":"raspberry 3.0","sensorType":"temperature"}' http://localhost:8080/devices
     curl -H "Content-type: application/json" -X POST -d '{"name": "gps-sensor", "gpio":"gv300A","model":"gv300","sensorType":"gps"}' http://localhost:8080/devices
-#####Search all iotDevice
+    
+*Search all iotDevice
+
     curl http://localhost:8080/devices/all
-#####Search by name
+    
+*Search by name
+
     curl http://localhost:8080/devices?name=fridge-sensor
-#####Search by model with ignite sql
+    
+*Search by model with ignite sql
+
     curl http://localhost:8080/sensorSql/gps
-#####Delete an entry from cache with gpio value
+    
+*Delete an entry from cache with gpio value
+
     curl -X DELETE http://localhost:8080/device/gpio57
-#####Insert an event
+    
+*Insert an event
+
     curl -H "Content-type: application/json" -X POST -d '{"gpio":"gpio57","data" : "{lon: 40.418,lat: -3.714,value: 15}","date":1510267094632,"eventId":2}' http://localhost:8080/event
