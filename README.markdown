@@ -4,7 +4,7 @@ A [Giter8][g8] template for Akka Http with Apache Ignite in Scala
 
 Prerequisites:
 - Jdk 8
-- [sbt 0.13.13 or higher](http://www.scala-sbt.org/documentation.html)
+- [sbt 0.13.13 or higher](http://www.scala-sbt.org/download.html)
 
 Open a console and run
 
