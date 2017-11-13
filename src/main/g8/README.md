@@ -45,7 +45,7 @@ For complete the request, a message is send to iotActor, that contains the busin
 
         case GetIotDeviceBySql(sensorType) => {
               val sqlText = s"sensorType = $sensorType"
-              println(s"Get values using Ignite Sql $sqlText")
+              ...
               val sql = new SqlQuery[String, IotDevice](classOf[IotDevice], sqlText)
               sender() ! igniteCache.query(sql).getAll.asScala.map(_.getValue)
          }
